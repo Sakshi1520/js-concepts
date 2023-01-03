@@ -183,3 +183,76 @@ const average = () => {
 // console.log(avgSoFar()); // should log: 6
 // console.log(avgSoFar(12)); // should log: 8
 // console.log(avgSoFar()); // should log: 8
+
+// Challenge 10
+const makeFuncTester = (arrOfTests) => {
+  return (cb) => {
+    let count = 0;
+    arrOfTests.forEach((el) => {
+    	if(cb(el[0]) === el[1]) {
+        count++;
+      }
+    });
+    if(count === arrOfTests.length) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+};
+
+// /*** Uncomment these to check your work! ***/
+// const capLastTestCases = [];
+// capLastTestCases.push(['hello', 'hellO']);
+// capLastTestCases.push(['goodbye', 'goodbyE']);
+// capLastTestCases.push(['howdy', 'howdY']);
+// const shouldCapitalizeLast = makeFuncTester(capLastTestCases);
+// const capLastAttempt1 = str => str.toUpperCase();
+// const capLastAttempt2 = str => str.slice(0, -1) + str.slice(-1).toUpperCase();
+// console.log(shouldCapitalizeLast(capLastAttempt1)); // should log: false
+// console.log(shouldCapitalizeLast(capLastAttempt2)); // should log: true
+
+
+// Challenge 11
+const makeHistory = (limit) => {
+  let recentLimit = limit;
+  let history = [];
+  return (str) => {
+    if(!history.length) {
+      if(str === 'undo') {
+        return 'nothing to undo';
+      } else {
+        history.push(str);
+        return str + ' done';
+      }
+    } else {
+      if(str === 'undo') {
+        const lastAction = history.pop();
+        return lastAction + ' undone';
+      } else {
+        if(history.length < limit) {
+          history.push(str);
+          return str + ' done';
+        }
+        if(history.length === limit) {
+          history.shift();
+          history.push(str);
+          return str + ' done';
+        }
+      }
+      
+    }
+  }
+};
+
+// /*** Uncomment these to check your work! ***/
+// const myActions = makeHistory(2);
+// console.log(myActions('jump')); // should log: 'jump done'
+// console.log(myActions('undo')); // should log: 'jump undone'
+// console.log(myActions('walk')); // should log: 'walk done'
+// console.log(myActions('code')); // should log: 'code done'
+// console.log(myActions('pose')); // should log: 'pose done'
+// console.log(myActions('undo')); // should log: 'pose undone'
+// console.log(myActions('undo')); // should log: 'code undone'
+// console.log(myActions('undo')); // should log: 'nothing to undo'
