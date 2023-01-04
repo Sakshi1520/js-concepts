@@ -38,5 +38,25 @@ Array.prototype.myReduce = function (cb, initialValue) {
   return acc;
 };
 
-// nums1 = nums.myReduce((acc, curr, i) => acc + curr);
-// console.log(nums1);
+
+// Challenge 7
+function intersection(...arrays) {
+  return arrays.reduce((acc, array) => {
+    return array.filter((item) => acc.includes(item));
+  });
+}
+
+// console.log(intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]));
+// should log: [5, 15]
+
+
+// Challenge 8
+const union = (...arrays) => {
+	return arrays.reduce((acc, curr) => {
+    const newArr = curr.filter((item) => !acc.includes(item));
+    return acc.concat(newArr);
+  })
+};
+
+// console.log(union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
+// should log: [5, 10, 15, 88, 1, 7, 100]
