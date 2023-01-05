@@ -60,3 +60,119 @@ const union = (...arrays) => {
 
 // console.log(union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
 // should log: [5, 10, 15, 88, 1, 7, 100]
+
+// Challenge 9
+const objOfMatches = (array1, array2, callback) => {
+	return array1.reduce((acc, element, index) => {
+    if(callback(element) === array2[index]) {
+      acc[element] = array2[index];
+    }
+    return acc;
+  }, {});
+};
+
+// console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], (str) => str.toUpperCase()));
+// should log: { hi: 'HI', bye: 'BYE', later: 'LATER' }
+
+// Challenge 10
+const multiMap = (arrVals, arrCallbacks) => {
+	return arrVals.reduce((acc, curr, index) => {
+    	const resultArray = arrCallbacks.map((func) => func(curr));
+    	acc[curr] = resultArray;
+    	return acc;
+  }, {});
+};
+
+// console.log(multiMap(['catfood', 'glue', 'beer'], [(str) => str.toUpperCase(), (str) => str[0].toUpperCase() + str.slice(1).toLowerCase(), (str) => str + str]));
+// should log: { catfood: ['CATFOOD', 'Catfood', 'catfoodcatfood'], glue: ['GLUE', 'Glue', 'glueglue'], beer: ['BEER', 'Beer', 'beerbeer'] }
+
+// Challenge 11
+const commutative = (func1, func2, value) => {
+  if((func2(func1(value))) === func1(func2(value))) {
+    return true;
+  }
+  return false;
+};
+
+// /*** Uncomment these to check your work! ***/
+// const multBy3 = n => n * 3;
+// const divBy4 = n => n / 4;
+// const subtract5 = n => n - 5;
+// console.log(commutative(multBy3, divBy4, 11)); // should log: true
+// console.log(commutative(multBy3, subtract5, 10)); // should log: false
+// console.log(commutative(divBy4, subtract5, 48)); // should log: false
+
+// Challenge 12
+const objFilter = (obj, callback) => {
+  const newObj = {};
+	for(let [key, value] of Object.entries(obj)) {
+    if(callback(key) === value) {
+      newObj[key] = value;
+    }
+  }
+  return newObj;
+};
+
+// /*** Uncomment these to check your work! ***/
+// const startingObj = {};
+// startingObj[6] = 3;
+// startingObj[2] = 1;
+// startingObj[12] = 4;
+// const half = n => n / 2;
+// console.log(objFilter(startingObj, half)); // should log: { 2: 1, 6: 3 }
+
+
+// Challenge 13
+const rating = (arrOfFuncs, value) => {
+  let count = 0;
+	return arrOfFuncs.map((func) => func(value)).filter((value) => value).length / arrOfFuncs.length * 100;
+  
+};
+
+// /*** Uncomment these to check your work! ***/
+// const isEven = n => n % 2 === 0;
+// const greaterThanFour = n => n > 4;
+// const isSquare = n => Math.sqrt(n) % 1 === 0;
+// const hasSix = n => n.toString().includes('6');
+// const checks = [isEven, greaterThanFour, isSquare, hasSix];
+// console.log(rating(checks, 64)); // should log: 100
+// console.log(rating(checks, 66)); // should log: 75
+
+// Challenge 14
+const pipe = (arrOfFuncs, value) => {
+	return arrOfFuncs.reduce((acc, currFunc) => {
+    acc = currFunc(acc);
+    return acc;
+  }, value);
+};
+
+// /*** Uncomment these to check your work! ***/
+// const capitalize = str => str.toUpperCase();
+// const addLowerCase = str => str + str.toLowerCase();
+// const repeat = str => str + str;
+// const capAddlowRepeat = [capitalize, addLowerCase, repeat];
+// console.log(pipe(capAddlowRepeat, 'cat')); // should log: 'CATcatCATcat'
+
+// Challenge 15
+const highestFunc = (objOfFuncs, subject) => {
+	let max = Number.NEGATIVE_INFINITY;
+  let maxKey;
+  for(const [key, value] of Object.entries(objOfFuncs)) {
+    if(value(subject) > max) {
+      max = value(subject);
+      maxKey = key;
+    }
+  }
+  return maxKey;
+};
+
+// /*** Uncomment these to check your work! ***/
+// const groupOfFuncs = {};
+// groupOfFuncs.double = n => n * 2;
+// groupOfFuncs.addTen = n => n + 10;
+// groupOfFuncs.inverse = n => n * -1;
+// console.log(highestFunc(groupOfFuncs, 5)); // should log: 'addTen'
+// console.log(highestFunc(groupOfFuncs, 11)); // should log: 'double'
+// console.log(highestFunc(groupOfFuncs, -20)); // should log: 'inverse'
+
+
