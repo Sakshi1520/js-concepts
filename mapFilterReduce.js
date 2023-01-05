@@ -175,4 +175,56 @@ const highestFunc = (objOfFuncs, subject) => {
 // console.log(highestFunc(groupOfFuncs, 11)); // should log: 'double'
 // console.log(highestFunc(groupOfFuncs, -20)); // should log: 'inverse'
 
+// ##########################
+// # Extension Challenges   #
+// ##########################
+
+// Challenge 1
+const functionValidator = (funcArr, input, output) => {
+	return funcArr.reduce((acc, curr) => {
+    if(curr(input) === output) {
+      acc.push(curr);
+    }
+    return acc;
+  },[]);
+}
+
+// const addFive = num => num + 5;
+// const multiplyByTwo = num => num * 2;
+// const subtractOne = num => num - 1;
+// const fnArr = [addFive, multiplyByTwo, subtractOne];
+
+// console.log(functionValidator(fnArr, 5, 10)) // should log [num => num + 5, num => num * 2]
+
+// Challenge 2
+const allClear = (funcArr, value) => {
+	return funcArr.reduce((acc, curr) => {
+      acc = acc && curr(value);
+    return acc;
+  }, true);
+}
+
+// const isOdd = num => num % 2 === 1;
+// const isPositive = num => num > 0;
+// const multipleOfFive = num => num % 5 === 0;
+// const numFnArr = [isOdd, isPositive, multipleOfFive];
+// console.log(allClear(numFnArr, 25)) // should log true 
+// console.log(allClear(numFnArr, -25)) // should log false
+
+// Challenge 3
+const numSelectString = (numArr) => {
+	return numArr.filter((num) => num%2).sort((a,b) => a-b).join(', ');
+}
+
+// const nums = [17, 34, 3, 12]
+// console.log(numSelectString(nums)) // should log "3, 17"
+
+// Challenge 4
+const movieSelector = (moviesArr) => {
+	return moviesArr.filter((movie) => movie.score > 5).map((movie) => movie.title.toUpperCase());
+}
+
+// const movies = [ { id: 1, title: "Pan's Labyrinth", score: 9 }, { id: 37, title: "Manos: The Hands of Fate", score: 2 }, { title: "Air Bud", score: 5 }, { title: "Hackers", score: 7 } ]
+// console.log(movieSelector(movies)) // should log [ "PAN'S LABYRINTH", "HACKERS" ]
+
 
